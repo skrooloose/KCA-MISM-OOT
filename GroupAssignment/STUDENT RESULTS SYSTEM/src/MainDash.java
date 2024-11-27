@@ -4,17 +4,74 @@
  */
 
 /**
- *
- * @author HOME
+ * MainDash - Main Dashboard for the Student Results System
+ * Provides access points for Students, Teachers, and Exam Officers
  */
 import javax.swing.*;
+import java.awt.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
 public class MainDash extends javax.swing.JFrame {
+    private static final Logger LOGGER = Logger.getLogger(MainDash.class.getName());
+    
+    // UI Constants
+    private static final Color BUTTON_BACKGROUND = new Color(204, 204, 255);
+    private static final Color BUTTON_FOREGROUND = new Color(0, 153, 153);
+    private static final Font BUTTON_FONT = new Font("Comic Sans MS", Font.BOLD, 24);
+    private static final String TITLE = "Student Results Management System";
+    
+    // Tooltip messages
+    private static final String STUDENT_TOOLTIP = "Click here to access student portal";
+    private static final String TEACHER_TOOLTIP = "Click here to access teacher portal";
+    private static final String EXO_TOOLTIP = "Click here to access exam officer portal";
 
     /**
-     * Creates new form MainDash
+     * Creates new form MainDash with enhanced UI components
      */
     public MainDash() {
         initComponents();
+        setupEnhancements();
+    }
+    
+    /**
+     * Sets up additional UI enhancements
+     */
+    private void setupEnhancements() {
+        // Set frame title and center it
+        setTitle(TITLE);
+        setLocationRelativeTo(null);
+        
+        // Add header label
+        JLabel headerLabel = new JLabel(TITLE, SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        headerLabel.setForeground(BUTTON_FOREGROUND);
+        headerLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        getContentPane().add(headerLabel, BorderLayout.NORTH);
+        
+        // Set tooltips
+        ButtongotoStudentDash.setToolTipText(STUDENT_TOOLTIP);
+        ButtongotoTeacherDash.setToolTipText(TEACHER_TOOLTIP);
+        ButtongotoEXOdash.setToolTipText(EXO_TOOLTIP);
+        
+        // Add hover effects
+        setupButtonHoverEffect(ButtongotoStudentDash);
+        setupButtonHoverEffect(ButtongotoTeacherDash);
+        setupButtonHoverEffect(ButtongotoEXOdash);
+    }
+    
+    /**
+     * Sets up hover effect for buttons
+     */
+    private void setupButtonHoverEffect(JButton button) {
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(BUTTON_BACKGROUND.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(BUTTON_BACKGROUND);
+            }
+        });
     }
 
     /**
@@ -90,29 +147,53 @@ public class MainDash extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ButtongotoEXOdashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtongotoEXOdashActionPerformed
-        // TODO add your handling code here:
-        EXOloginPage exologin = new EXOloginPage();
-        exologin.setVisible(true);
-        // Ensure closing this login page window does not close the main dashboard
-        exologin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_ButtongotoEXOdashActionPerformed
+    private void ButtongotoEXOdashActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            LOGGER.info("Opening Exam Officer login page");
+            EXOloginPage exologin = new EXOloginPage();
+            exologin.setVisible(true);
+            exologin.setLocationRelativeTo(null);
+            exologin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error opening Exam Officer login page", e);
+            JOptionPane.showMessageDialog(this,
+                "Unable to open Exam Officer login page. Please try again.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-    private void ButtongotoTeacherDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtongotoTeacherDashActionPerformed
-        // TODO add your handling code here:
-        TeacherloginPage tlogin = new TeacherloginPage();
-        tlogin.setVisible(true);
-        // Ensure closing this login page window does not close the main dashboard:
-        tlogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_ButtongotoTeacherDashActionPerformed
+    private void ButtongotoTeacherDashActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            LOGGER.info("Opening Teacher login page");
+            TeacherloginPage tlogin = new TeacherloginPage();
+            tlogin.setVisible(true);
+            tlogin.setLocationRelativeTo(null);
+            tlogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error opening Teacher login page", e);
+            JOptionPane.showMessageDialog(this,
+                "Unable to open Teacher login page. Please try again.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-    private void ButtongotoStudentDashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtongotoStudentDashActionPerformed
-        // TODO add your handling code here:
-        StudentloginPage studentLogin = new StudentloginPage();
-        studentLogin.setVisible(true);
-        // Ensure closing this login page window does not close the main dashboard:
-        studentLogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-    }//GEN-LAST:event_ButtongotoStudentDashActionPerformed
+    private void ButtongotoStudentDashActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            LOGGER.info("Opening Student login page");
+            StudentloginPage studentLogin = new StudentloginPage();
+            studentLogin.setVisible(true);
+            studentLogin.setLocationRelativeTo(null);
+            studentLogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error opening Student login page", e);
+            JOptionPane.showMessageDialog(this,
+                "Unable to open Student login page. Please try again.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
