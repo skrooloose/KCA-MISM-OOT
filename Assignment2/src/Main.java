@@ -14,6 +14,7 @@ class Update implements DataSource {
 class View implements DataSource {
     @Override
     public void execute() {
+
         System.out.println("View operation executed.");
     }
 }
@@ -31,7 +32,8 @@ abstract class Account {
     protected String name;
     private DataSource myData;
 
-    public Account(int id, String name) {
+    public Account(int id, String name)
+    {
         this.id = id;
         this.name = name;
     }
@@ -70,12 +72,10 @@ public class Main {
         // Creating Admin and User objects
         Admin admin = new Admin(1, "AdminUser", "admin123");
         User user = new User(2, "NormalUser");
-
         // Creating instances of Update, View, and Delete operations
         DataSource updateOperation = new Update();
         DataSource viewOperation = new View();
         DataSource deleteOperation = new Delete();
-
         // Performing operations
         admin.performOperation(updateOperation); // Admin performing update
         user.performOperation(viewOperation);   // User performing view
